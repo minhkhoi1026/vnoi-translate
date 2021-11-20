@@ -382,11 +382,11 @@ int calculateGValue(int i, int j) {
 
 Ý tưởng của hàm trên chỉ đơn giản là tại mỗi vị trí $(i,j)$ ta tính mex bằng công thức đệ quy như định nghĩa. Để di chuyển đến các vị trí hợp lệ, ta có hai mảng hằng số `di` và `dj` hích thước $4$ tương ứng với bốn bước di chuyển $(i-2,j+1), (i-2,j-1), (i-1,j-2), (i+1,j-2)$ như đề bài miêu tả, với mỗi vị trí ta xét xem chúng có nằm trên bàn cờ không, nếu có thì mới thêm thêm giá trị Grundy tại vị trí đó vào vector `U`. Lưu ý là ở đây để tối ưu thời gian chạy thì ta sẽ dụng kỹ thuật đệ quy có nhớ đã trình bày ở phần **Trò chơi tổ hợp cân bằng**, do đó trước khi gọi tính giá trị Sprague-Grundy của từng ô trong bảng thì phải khởi tạo tất cả giá trị của mảng $g$ bằng $-1$.
 
-Trước tiên, ta định nghĩa cấu trúc dữ liệu để lưu trữ thông tin của một quân mã, đó một `struct` gồm hai thông tin $x,y$ tương ứng là tọa độ dòng và cột của quân mã.
+Trước tiên, ta định nghĩa cấu trúc dữ liệu để lưu trữ thông tin của một quân mã, đó một `struct` gồm hai thông tin $row, col$ tương ứng là tọa độ dòng và cột của quân mã.
 ```C++
 struct Cell {
   int row, col;
-}
+};
 ```
 Khi đã có giá trị Grundy của tất cả các ô từ $(1,1)$ đến $(N,N)$, để tính giá trị Sprague-Grundy của trò chơi có $K$ quân mã ta chỉ cần áp dụng định lý 2, đó là XOR $K$ giá trị Sprague-Grundy của $K$ quân mã lại. Thuật toán sẽ như sau:
 ```C++
